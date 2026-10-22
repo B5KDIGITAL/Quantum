@@ -1,0 +1,26 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "Quantum Crawl",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/B5KDIGITAL/Quantum.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/B5KDIGITAL/Quantum/issues"
+  },
+  "homepage": "https://github.com/B5KDIGITAL/Quantum#readme",
+  "devDependencies": {
+    "canvas": "^3.2.3",
+    "jest": "^30.5.2",
+    "jest-environment-jsdom": "^30.5.2"
+  }
+}
