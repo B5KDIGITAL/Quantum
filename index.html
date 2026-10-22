@@ -513,6 +513,7 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
                 }
             });
             if (currentLine) lines.push(currentLine.trim());
+            lines._cachedJoin = str;
             return lines;
         }
 
@@ -528,7 +529,7 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
                             const item = tooltipItems[0];
                             let label = item.chart.data.labels[item.dataIndex];
                             if (Array.isArray(label)) {
-                              return label.join(' ');
+                              return label._cachedJoin || label.join(' ');
                             } else {
                               return label;
                             }
