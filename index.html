@@ -235,7 +235,7 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
             <!-- Process Diagram -->
             <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
-                    
+
                     <!-- Step 1 -->
                     <div class="bg-gray-950 border border-cyan-800/60 rounded-xl p-4 flex flex-col justify-between hover:border-cyan-500 transition">
                         <div>
@@ -402,7 +402,7 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
+
                 <!-- Chart 5: Edge Latency Breakdown -->
                 <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 flex flex-col justify-between">
                     <div>
@@ -497,24 +497,8 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
     </main>
 
     <!-- JavaScript Charts Initialization & Interactivity Logic -->
-    <script>
-        // Label formatting function enforcing <= 16 character wrapping logic
-        function formatLabel(str, maxLen = 16) {
-            if (typeof str !== 'string' || str.length <= maxLen) return str;
-            const words = str.split(' ');
-            const lines = [];
-            let currentLine = '';
-            words.forEach(word => {
-                if ((currentLine + ' ' + word).trim().length > maxLen) {
-                    if (currentLine) lines.push(currentLine.trim());
-                    currentLine = word;
-                } else {
-                    currentLine += (currentLine ? ' ' : '') + word;
-                }
-            });
-            if (currentLine) lines.push(currentLine.trim());
-            return lines;
-        }
+    <script src="utils.js"></script>
+<script>
 
         // Global Chart Defaults for Tooltips & Styling
         Chart.defaults.color = '#9CA3AF';
@@ -548,7 +532,7 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
             "Autonomous Code Generation",
             "HTTP 402 Monetization"
         ];
-        
+
         new Chart(spiderCtx, {
             type: 'radar',
             data: {
