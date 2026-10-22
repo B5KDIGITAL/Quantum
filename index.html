@@ -235,7 +235,7 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
             <!-- Process Diagram -->
             <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
-                    
+
                     <!-- Step 1 -->
                     <div class="bg-gray-950 border border-cyan-800/60 rounded-xl p-4 flex flex-col justify-between hover:border-cyan-500 transition">
                         <div>
@@ -402,7 +402,7 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
+
                 <!-- Chart 5: Edge Latency Breakdown -->
                 <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 flex flex-col justify-between">
                     <div>
@@ -538,6 +538,21 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
             }
         };
 
+        function createDashboardChart(ctx, type, rawLabels, datasets, customOptions = {}) {
+            return new Chart(ctx, {
+                type: type,
+                data: {
+                    labels: rawLabels.map(l => formatLabel(l, 16)),
+                    datasets: datasets
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    ...customOptions,
+                    plugins: mandatoryTooltipConfig.plugins
+                }
+            });
+        }
+
         // 1. Radar Chart: Capability Balance Matrix
         const spiderCtx = document.getElementById('spiderChartCanvas').getContext('2d');
         const spiderRawLabels = [
@@ -548,12 +563,8 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
             "Autonomous Code Generation",
             "HTTP 402 Monetization"
         ];
-        
-        new Chart(spiderCtx, {
-            type: 'radar',
-            data: {
-                labels: spiderRawLabels.map(l => formatLabel(l, 16)),
-                datasets: [
+
+        createDashboardChart(spiderCtx, 'radar', spiderRawLabels, [
                     {
                         label: 'Quantum Crawl (Edge-Native)',
                         data: [98, 95, 96, 90, 92, 94],
@@ -572,10 +583,7 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
                         pointBorderColor: '#fff',
                         borderWidth: 1.5
                     }
-                ]
-            },
-            options: {
-                maintainAspectRatio: false,
+                ], {
                 scales: {
                     r: {
                         angleLines: { color: '#1F2937' },
@@ -586,9 +594,7 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
                         },
                         ticks: { display: false, max: 100 }
                     }
-                },
-                plugins: mandatoryTooltipConfig.plugins
-            }
+                }
         });
 
         // 2. Bar Chart: Throughput Speed Benchmark
@@ -599,11 +605,7 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
             "Quantum Swarm Engine"
         ];
 
-        new Chart(throughputCtx, {
-            type: 'bar',
-            data: {
-                labels: throughputRawLabels.map(l => formatLabel(l, 16)),
-                datasets: [{
+        createDashboardChart(throughputCtx, 'bar', throughputRawLabels, [{
                     label: 'URLs Crawled / Min',
                     data: [5000, 1200, 125000],
                     backgroundColor: [
@@ -618,11 +620,8 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
                     ],
                     borderWidth: 1.5,
                     borderRadius: 6
-                }]
-            },
-            options: {
+                }], {
                 indexAxis: 'y',
-                maintainAspectRatio: false,
                 scales: {
                     x: {
                         grid: { color: '#1F2937' },
@@ -632,9 +631,7 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
                         grid: { display: false },
                         ticks: { color: '#F3F4F6', font: { weight: '600' } }
                     }
-                },
-                plugins: mandatoryTooltipConfig.plugins
-            }
+                }
         });
 
         // 3. Doughnut Chart: LLM Context Token Overhead Savings
@@ -644,11 +641,7 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
             "Discarded HTML DOM Bloat"
         ];
 
-        new Chart(tokenCtx, {
-            type: 'doughnut',
-            data: {
-                labels: tokenRawLabels.map(l => formatLabel(l, 16)),
-                datasets: [{
+        createDashboardChart(tokenCtx, 'doughnut', tokenRawLabels, [{
                     data: [33, 67],
                     backgroundColor: [
                         '#06B6D4',
@@ -656,13 +649,8 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
                     ],
                     borderColor: ['#06B6D4', '#374151'],
                     borderWidth: 2
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                cutout: '70%',
-                plugins: mandatoryTooltipConfig.plugins
-            }
+                }], {
+                cutout: '70%'
         });
 
         // 4. Horizontal Stacked Bar Chart: SEO vs GEO Ranking Weights
@@ -674,11 +662,7 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
             "Semantic Vector Centroid Match"
         ];
 
-        new Chart(geoVsSeoCtx, {
-            type: 'bar',
-            data: {
-                labels: geoRawLabels.map(l => formatLabel(l, 16)),
-                datasets: [
+        createDashboardChart(geoVsSeoCtx, 'bar', geoRawLabels, [
                     {
                         label: 'Traditional SERP Weight',
                         data: [75, 30, 20, 25],
@@ -691,10 +675,7 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
                         backgroundColor: 'rgba(16, 185, 129, 0.85)',
                         borderRadius: 4
                     }
-                ]
-            },
-            options: {
-                maintainAspectRatio: false,
+                ], {
                 scales: {
                     x: {
                         stacked: false,
@@ -705,9 +686,7 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
                         grid: { display: false },
                         ticks: { color: '#F3F4F6' }
                     }
-                },
-                plugins: mandatoryTooltipConfig.plugins
-            }
+                }
         });
 
         // 5. Polar Area Chart: Edge Latency Budget Allocation
@@ -719,11 +698,7 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
             "Security Policy Check"
         ];
 
-        new Chart(edgeLatencyCtx, {
-            type: 'polarArea',
-            data: {
-                labels: edgeRawLabels.map(l => formatLabel(l, 16)),
-                datasets: [{
+        createDashboardChart(edgeLatencyCtx, 'polarArea', edgeRawLabels, [{
                     data: [8, 12, 4, 5],
                     backgroundColor: [
                         'rgba(6, 182, 212, 0.7)',
@@ -733,18 +708,13 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
                     ],
                     borderColor: '#111827',
                     borderWidth: 2
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
+                }], {
                 scales: {
                     r: {
                         grid: { color: '#1F2937' },
                         ticks: { display: false }
                     }
-                },
-                plugins: mandatoryTooltipConfig.plugins
-            }
+                }
         });
 
         // Interactive HTTP 402 Pay-Per-Crawl Calculator Logic
