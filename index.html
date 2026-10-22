@@ -504,15 +504,23 @@ Confirmation: NEITHER Mermaid JS NOR SVG graphics were used anywhere in this sin
             const words = str.split(' ');
             const lines = [];
             let currentLine = '';
-            words.forEach(word => {
-                if ((currentLine + ' ' + word).trim().length > maxLen) {
-                    if (currentLine) lines.push(currentLine.trim());
+            let currentLineLen = 0;
+            for (let i = 0; i < words.length; i++) {
+                const word = words[i];
+                const wordLen = word.length;
+                if (currentLineLen === 0) {
                     currentLine = word;
+                    currentLineLen = wordLen;
+                } else if (currentLineLen + 1 + wordLen > maxLen) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                    currentLineLen = wordLen;
                 } else {
-                    currentLine += (currentLine ? ' ' : '') + word;
+                    currentLine += ' ' + word;
+                    currentLineLen += 1 + wordLen;
                 }
-            });
-            if (currentLine) lines.push(currentLine.trim());
+            }
+            if (currentLineLen > 0) lines.push(currentLine);
             return lines;
         }
 
